@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/MSBingMapsExtended/.vs
+/MSBingMapsExtended/bin/Debug/net7.0
+/MSBingMapsExtended/obj
+/MSBingMapsGraphQL/.vs
+/MSBingMapsGraphQL/bin/Debug
+/MSBingMapsGraphQL/obj
+/MSBingMapsGraphQL/MSBingMapsGraphQL.csproj.user

@@ -1,0 +1,44 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+@using MSBingMapsExtended.Data
+@using MSBingMapsExtended.Services;
+@inject GraphGPTService GraphGPTService
+
+<img src="Images/Title.jpg" asp-append-version="true" width="1000px" />
+<br/>
+<br/>
+
+<EditForm Model="@RequestModel" OnSubmit="@Submit">
+    <InputTextArea @bind-Value="RequestModel!.SearchRequest" style="width: 100%" />
+    <button type="submit">Ask Bing Chat</button>
+    <InputCheckbox @bind-Value="RequestModel!.UseGraphQL" style="align-self:end"></InputCheckbox>
+    <label>Use Entity Graph</label>
+</EditForm>
+
+<table class="table" style="font-size: 12px">
+    <tbody>
+        @foreach (var line in ResponseModel.ResponseLines)
+        {
+            <tr>
+                <td>@line</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private FormRequestModel RequestModel;
+    private FormResponseModel ResponseModel;
+
+    protected override void OnInitialized() { 
+        RequestModel ??= new FormRequestModel();
+        ResponseModel ??= new FormResponseModel();
+    }
+
+    private void Submit()
+    {
+        ResponseModel.ResponseLines = GraphGPTService.AskGPTWithKnowledgeGraph(RequestModel?.SearchRequest, RequestModel?.UseGraphQL ?? true);
+    }
+}
